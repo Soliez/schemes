@@ -7,10 +7,4 @@ fi
 
 path="$1/Contents/Info.plist"
 
-temp_file=$(mktemp)
-
-plutil -convert json "$path" -o "$temp_file"
-
-cat "$temp_file" | jq .CFBundleURLTypes.[0].CFBundleURLSchemes
-
-rm "$temp_file"
+plutil -convert json "$path" -o - | jq .CFBundleURLTypes.[0].CFBundleURLSchemes
